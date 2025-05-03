@@ -1,0 +1,141 @@
+<% layout("layouts/boilerplate.ejs") %>
+<!-- <h3>All Listings</h3> -->
+<!-- <form method="GET" action="/listings/new">
+  <button>Create New Listing</button>
+</form> -->
+
+<!-- Container: arrows + scrollable filters + switch outside scroll -->
+<div class="d-flex align-items-center border-bottom px-2 py-2">
+
+  <!-- Left arrow -->
+  <button id="scrollLeft" class="btn btn-light me-2 d-md-none">
+    <i class="fa-solid fa-chevron-left"></i>
+  </button>
+
+  <!-- Scrollable filters only -->
+  <div id="filters" class="d-flex flex-nowrap overflow-auto gap-4 flex-grow-1">
+    <a href="/listings/category/Trending" class="filter-link">  
+      <div class="filter text-center">
+        <div>
+          <i class="fa-solid fa-fire"></i>
+        </div>
+        <p>Trending</p>
+      </div>
+    </a>
+
+    <a href="/listings/category/Rooms" class="filter-link">
+      <div class="filter text-center">
+        <div>
+          <i class="fa-solid fa-bed"></i>
+        </div>
+        <p>Rooms</p>
+      </div>
+    </a>  
+
+    <a href="/listings/category/Iconic%20city" class="filter-link">
+      <div class="filter text-center">
+        <div>
+          <i class="fa-solid fa-mountain-city"></i>
+        </div>
+        <p>Iconic cities</p>
+      </div>
+    </a>
+
+    <a href="/listings/category/Mountains" class="filter-link">
+      <div class="filter text-center">
+        <div>
+          <i class="fa-solid fa-mountain"></i>
+        </div>
+        <p>Mountains</p>
+      </div>
+    </a>
+
+    <a href="/listings/category/Castel" class="filter-link">
+      <div class="filter text-center">
+        <div>
+          <i class="fa-brands fa-fort-awesome"></i>
+        </div>
+        <p>Castles</p>
+      </div>
+    </a>
+
+    <a href="/listings/category/Camping" class="filter-link">
+      <div class="filter text-center">
+        <div>
+          <i class="fa-solid fa-campground"></i>
+        </div>
+        <p>Camping</p>
+      </div>
+    </a>
+
+    <a href="/listings/category/Farms" class="filter-link">
+      <div class="filter text-center">
+        <div>
+          <i class="fa-solid fa-cow"></i>
+        </div>
+        <p>Farms</p>
+      </div>
+    </a>
+
+    <a href="/listings/category/Arctic" class="filter-link">
+      <div class="filter text-center">
+        <div>
+          <i class="fa-solid fa-snowman"></i>
+        </div>
+        <p>Arctic</p>
+      </div>
+    </a>
+
+    <a href="/listings/category/Beach" class="filter-link">
+      <div class="filter text-center">
+        <div>
+          <i class="fa-solid fa-umbrella-beach"></i>
+        </div>
+        <p>Beach</p>
+      </div>
+    </a>
+
+    <a href="/listings/category/Boats" class="filter-link">
+      <div class="filter text-center">
+        <div>
+          <i class="fa-solid fa-ship"></i>
+        </div>
+        <p>Boats</p>
+      </div>
+    </a>
+  </div>
+
+  <!-- Right arrow -->
+  <button id="scrollRight" class="btn btn-light mx-2 d-md-none">
+    <i class="fa-solid fa-chevron-right"></i>
+  </button>
+
+  <!-- Always visible tax toggle -->
+  <div class="tax-toggle ms-auto">
+    <div class="form-check-reverse form-switch">
+      <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault">
+      <label class="form-check-label" for="switchCheckDefault">Display total after taxes</label>
+    </div>
+  </div>
+</div>
+
+
+<div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-3">
+  <% for(let listing of allListings) { %>
+    <a href="/listings/<%=listing._id%>" class="listing-link">
+      <div class="card col listing-card">
+        <img src="<%= listing.image.url %>" class="card-img-top" alt="listing_image" style="height: 20rem">
+        
+        <div class="card-img-overlay"></div>
+
+        <div class="card-body">
+          <p class="card-text">
+            <b><%= listing.title %></b> <br />
+            &#8377; <%= listing.price.toLocaleString("en-IN") %> / night
+            <i class="tax-info"> &nbsp; &nbsp; +18% GST</i>
+          </p>
+        </div>
+      </div>
+    </a>
+  <% } %>
+</div>

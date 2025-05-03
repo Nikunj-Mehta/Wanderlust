@@ -1,0 +1,82 @@
+<% layout("layouts/boilerplate.ejs") %>
+<div class="row mt-3">
+  <div class="col-8 offset-2">
+    <h3>Edit your Listing</h3>
+    <form method="POST" action="/listings/<%=listing._id%>?_method=PUT" novalidate class="needs-validation" enctype="multipart/form-data">
+      
+      <div class="mb-3">
+        <label for="title" class="form-label">Title</label>
+        <input type="text" name="listing[title]" value="<%= listing.title %>" class="form-control" required>
+
+        <div class="valid-feedback">Title Looks good!</div>
+        <div class="invalid-feedback">Title should be valid.</div>
+      </div>
+
+      <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <textarea name="listing[description]" class="form-control" required> <%= listing.description %> </textarea>
+
+        <div class="valid-feedback">Description Looks good!</div>
+        <div class="invalid-feedback">Please enter a short Description.</div>
+      </div>
+
+      <div class="mb-3">
+        Original Listing Image <br />
+        <img src="<%=originalImageUrl%>" />
+      </div>
+
+      <div class="mb-3">
+        <label for="image" class="form-label">Upload New Image</label>
+        <input type="file" name="listing[image]" class="form-control">
+      </div>
+      
+      <div class="input-group mb-3">
+        <label class="input-group-text" for="category">Options</label>
+        <select class="form-control" type="text" name="listing[category]" required>
+          <!-- Show current category as selected -->
+          <option selected><%=listing.category%></option>
+          <!-- Now render all options except the one that matches listing.category -->
+          <% const categories = ["Trending", "Rooms", "Iconic city", "Mountains", "Castle", "Camping", "Farms", "Arctic", "Beach", "Boats"]; %>
+          <% categories.forEach(category => { %>
+            <% if (category !== listing.category) { %>
+              <option value="<%= category %>"><%= category %></option>
+            <% } %>
+          <% }); %>
+        </select>
+
+        <div class="valid-feedback">Category Looks good!</div>
+        <div class="invalid-feedback">Please select a category from availabe choices.</div>
+      </div>
+        
+      
+      <div class="row">
+        <div class="mb-3 col-md-4">
+          <label for="price" class="form-label">Price</label>
+          <input type="number" name="listing[price]" value="<%= listing.price %>" class="form-control" required>
+
+          <div class="valid-feedback">Price Looks good!</div>
+          <div class="invalid-feedback">Price should be valid.</div>
+        </div>  
+
+        <div class="mb-3 col-md-8">
+          <label for="country" class="form-label">Country</label>
+          <input type="text" name="listing[country]" value="<%= listing.country %>" class="form-control" required>
+
+          <div class="valid-feedback">Country Looks good!</div>
+          <div class="invalid-feedback">Country name should be valid.</div>
+        </div>  
+      </div>
+      
+      <div class="mb-3">
+        <label for="location" class="form-label">Location</label>
+        <input type="text" name="listing[location]" value="<%= listing.location %>" class="form-control" required>
+
+        <div class="valid-feedback">Location Looks good!</div>
+        <div class="invalid-feedback">Location should be valid.</div>
+      </div>  
+
+      <button class="btn btn-dark edit-btn mt-3">Edit</button>
+      <br /><br />
+    </form>
+  </div>
+</div>

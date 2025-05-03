@@ -1,0 +1,14 @@
+<% if(success && success.length > 0) { %>
+    <div class="alert alert-success alert-dismissible fade show col-6 offset-3">
+      <%= success %> <!-- Display's flash msg stored in res.locals.success(in that whose key is "success") after a listing is added successfully -->
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+<% } %>
+
+
+<% if(error && error.length > 0) { %>
+  <div class="alert alert-danger alert-dismissible fade show col-6 offset-3">
+    <%= error %> <!-- Display's flash msg after a listing is added successfully -->
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+<% } %>

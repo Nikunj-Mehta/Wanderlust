@@ -1,0 +1,75 @@
+<% layout("layouts/boilerplate.ejs") %>
+<div class="row mt-3">
+  <div class="col-8 offset-2">
+    <h3>Create a New Listing</h3>
+    <form method="POST" action="/listings" novalidate class="needs-validation" enctype="multipart/form-data">
+      <div class="mb-3">
+        <label for="title" class="form-label">Title</label>
+        <input type="text" name="listing[title]" placeholder="Add a catchy title" class="form-control" required>
+
+        <div class="valid-feedback">Title Looks good!</div>
+        <div class="invalid-feedback">Title should be valid.</div>
+      </div>
+
+      <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <textarea name="listing[description]" class="form-control" required></textarea>
+
+        <div class="valid-feedback">Description Looks good!</div>
+        <div class="invalid-feedback">Please enter a short Description.</div>
+      </div>
+
+      <div class="mb-3">
+        <label for="image" class="form-label">Upload Image</label>
+        <input type="file" name="listing[image]" class="form-control" required>
+      </div>
+
+      <div class="input-group mb-3">
+        <label class="input-group-text" for="category">Options</label>
+        <select class="form-control" type="text" name="listing[category]" required>
+          <option value="" selected disabled>Choose category...</option>
+
+          <!-- display all the category form this categories using forEach loop -->
+          <!-- this array is taken form listings enum in models -->
+          <% const categories = ["Trending", "Rooms", "Iconic city", "Mountains", "Castle", "Camping", "Farms", "Arctic", "Beach", "Boats"]; %> 
+          <% categories.forEach(category => { %>
+              <option value="<%= category %>"><%= category %></option>
+          <% }); %>
+        </select>
+
+        <div class="valid-feedback">Category Looks good!</div>
+        <div class="invalid-feedback">Please choose a category.</div>
+
+      </div>
+
+      <div class="row">
+        <div class="mb-3 col-md-4">
+          <label for="price" class="form-label">Price</label>
+          <input type="number" name="listing[price]" placeholder="1200" class="form-control" required>
+
+          <div class="valid-feedback">Price Looks good!</div>
+          <div class="invalid-feedback">Price should be valid.</div>
+        </div>
+
+        <div class="mb-3 col-md-8">
+          <label for="country" class="form-label">Country</label>
+        <input type="text" name="listing[country]" placeholder="India" class="form-control" required>
+
+          <div class="valid-feedback">Country Looks good!</div>
+          <div class="invalid-feedback">Country name should be valid.</div>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="location" class="form-label">Location</label>
+      <input type="text" name="listing[location]" placeholder="Jaipur, Rajasthan" class="form-control" required>
+
+        <div class="valid-feedback">Location Looks good!</div>
+        <div class="invalid-feedback">Location should be valid.</div>
+      </div>
+
+      <button class="btn btn-dark add-btn mt-3">Add</button>
+      <br /><br />
+    </form>
+  </div>
+</div>
