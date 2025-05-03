@@ -20,6 +20,8 @@ const listingRouter = require("./routes/listing.js");
 const reviewRouter = require("./routes/review.js");
 const userRouter = require("./routes/user.js");
 
+const Listing = require("./models/listing.js")
+
 
 // const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
 const dbUrl = process.env.ATLASDB_URL;
@@ -49,7 +51,7 @@ const store = MongoStore.create({ // Method used to create new mongo store.
   touchAfter: 3600 * 24 // Interval between session updates. If there is no change in session the when we will update our infomation. Interval is passed in seconds 24 hours.
 });
 
-store.on("error", () => {
+store.on("error", (err) => {
   console.log("Error in MONGON SESSION STORE", err);
 });
 
@@ -99,6 +101,11 @@ app.use((req, res, next) => { // middleware
 //   let registeredUser = await User.register(fakeUser, "helloworld"); // .register is a static method takes 2 arguments, 1 is user and 2nd is password. It stored the user along with passowrd in our db. and also checks if the username is unique or not.
 //   res.send(registeredUser);
 // });
+
+app.get("/", async (req, res) => {
+  let allListings = await Listing.find({}); // storing all data present in collection named "listings" in a var named "allListings".
+  res.render("listings/index.ejs", { allListings });
+});
 
 app.use("/listings", listingRouter); // instead of listing we are using a single line.
 app.use("/listings/:id/reviews", reviewRouter); // return here is parent route "/listing/:id/reviews"
