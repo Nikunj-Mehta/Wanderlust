@@ -5,99 +5,103 @@
   // Wrapping the object in JSON.parse to satisfy VS Code and linting
   const listing = JSON.parse('<%- JSON.stringify(listing) %>'); // use single quotes. If you used double quotes then it will give error.
 </script>
-<div class="row mt-3">
-  <div class="col-8 offset-3">
-    <h3><b><%= listing.title %></b> </h3>
-  </div>
-    <div class="card col-6 offset-3 show-card listing-card">
-      <img src="<%= listing.image.url %>" class="card-img-top show-img" alt="listing_image">
-      <div class="card-body">
-        <p class="card-text"> Owned by <i> <%= listing.owner.username  %> </i> </p>
-
-        <p class="card-text"><%= listing.category %></p>
-          
-        <p class="card-text"> <%= listing.description %> </p>
-
-        <p class="card-text"> &#8377; <%= listing.price.toLocaleString("en-IN") %> </p>
-
-        <p class="card-text"> <%= listing.location %> </p>
-
-        <p class="card-text"> <%= listing.country %></p>
-      </div>
+<div class="container">
+  <div class="row mt-3">
+    <div class="col-8 offset-3">
+      <h3><b><%= listing.title %></b> </h3>
     </div>
+      <div class="card col-6 offset-3 show-card listing-card">
+        <img src="<%= listing.image.url %>" class="card-img-top show-img" alt="listing_image">
+        <div class="card-body">
+          <p class="card-text"> Owned by <i> <%= listing.owner.username  %> </i> </p>
 
-    <br />
+          <p class="card-text"><%= listing.category %></p>
+            
+          <p class="card-text"> <%= listing.description %> </p>
 
-    <% if(currUser && listing.owner._id.equals(currUser._id)) { %>
-      <div class="btns">
-        <a href="/listings/<%=listing.id%>/edit" class="btn btn-dark col-1 offset-3 edit-btn">Edit</a>
+          <p class="card-text"> &#8377; <%= listing.price.toLocaleString("en-IN") %> </p>
 
-        <form method="POST" action="/listings/<%=listing._id%>?_method=DELETE">
-          <button class="btn btn-dark offset-5">Delete</button>
-        </form>
+          <p class="card-text"> <%= listing.location %> </p>
+
+          <p class="card-text"> <%= listing.country %></p>
+        </div>
       </div>
-    <% } %>
 
-  <div class="col-8 offset-3 mb-3">
-    <% if(currUser) { %>
-      <hr />
-      <h4>Leave a Review</h4>
-      <form method="POST" action="/listings/<%=listing.id%>/reviews" novalidate class="needs-validation">
-        <div class="mb-3 mt-3">
-          <label for="rating" class="form-label">Rating</label>
-          <!-- for star rating taken from starability on github -->
-          <fieldset class="starability-coinFlip">
-            <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="1" checked aria-label="No rating." />
-            <input type="radio" id="first-rate1" name="review[rating]" value="1" />
-            <label for="first-rate1" title="Terrible">1 star</label>
-            <input type="radio" id="first-rate2" name="review[rating]" value="2" />
-            <label for="first-rate2" title="Not good">2 stars</label>
-            <input type="radio" id="first-rate3" name="review[rating]" value="3" />
-            <label for="first-rate3" title="Average">3 stars</label>
-            <input type="radio" id="first-rate4" name="review[rating]" value="4" />
-            <label for="first-rate4" title="Very good">4 stars</label>
-            <input type="radio" id="first-rate5" name="review[rating]" value="5" />
-            <label for="first-rate5" title="Amazing">5 stars</label>
-          </fieldset>
-        </div>
+      <br />
 
-        <div class="mb-3 mt-3">
-          <label for="comment" class="form-label">Comments</label>
-          <textarea name="review[comment]" id="comment" cols="30" rows="5" class="form-control" required></textarea>
+      <% if(currUser && listing.owner._id.equals(currUser._id)) { %>
+        <div class="btns">
+          <a href="/listings/<%=listing.id%>/edit" class="btn btn-dark col-1 offset-3 edit-btn">Edit</a>
 
-          <div class="invalid-feedback">Please add some comments for review</div>
-        </div>
-        <button class="btn btn-outline-dark">Submit</button>
-      </form>
-      <hr />
-    <% } %>  
-    
-    <% if(listing.reviews.length > 0) { %>
-    <div class="row">
-      <p><b> All Reviews </b></p>
-      <% for(review of listing.reviews) { %>
-        <div class="card col-5 ms-3 mb-3">
-          <div class="card-body">
-            <h5 class="card-title"><i> @<%= review.author.username %> </i></h5>
-            <p class="starability-result card-text" data-rating="<%= review.rating %>"></p>
-            <p class="card-text"><%= review.comment %></p>
-          </div>
-          <form method="POST"  action="/listings/<%=listing._id%>/reviews/<%=review._id%>?_method=DELETE" class="mb-3">
-            <button class="btn btn-sm btn-dark">Delete</button>
+          <form method="POST" action="/listings/<%=listing._id%>?_method=DELETE">
+            <button class="btn btn-dark offset-5">Delete</button>
           </form>
         </div>
       <% } %>
+
+    <div class="col-8 offset-3 mb-3">
+      <% if(currUser) { %>
+        <hr />
+        <h4>Leave a Review</h4>
+        <form method="POST" action="/listings/<%=listing.id%>/reviews" novalidate class="needs-validation">
+          <div class="mb-3 mt-3">
+            <label for="rating" class="form-label">Rating</label>
+            <!-- for star rating taken from starability on github -->
+            <div class="p-2 border rounded"> 
+              <fieldset class="starability-coinFlip">
+                <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="1" checked aria-label="No rating." />
+                <input type="radio" id="first-rate1" name="review[rating]" value="1" />
+                <label for="first-rate1" title="Terrible">1 star</label>
+                <input type="radio" id="first-rate2" name="review[rating]" value="2" />
+                <label for="first-rate2" title="Not good">2 stars</label>
+                <input type="radio" id="first-rate3" name="review[rating]" value="3" />
+                <label for="first-rate3" title="Average">3 stars</label>
+                <input type="radio" id="first-rate4" name="review[rating]" value="4" />
+                <label for="first-rate4" title="Very good">4 stars</label>
+                <input type="radio" id="first-rate5" name="review[rating]" value="5" />
+                <label for="first-rate5" title="Amazing">5 stars</label>
+              </fieldset>
+            </div>  
+          </div>
+
+          <div class="mb-3 mt-3">
+            <label for="comment" class="form-label">Comments</label>
+            <textarea name="review[comment]" id="comment" cols="30" rows="5" class="form-control" required></textarea>
+
+            <div class="invalid-feedback">Please add some comments for review</div>
+          </div>
+          <button class="btn btn-outline-dark">Submit</button>
+        </form>
+        <hr />
+      <% } %>  
+      
+      <% if(listing.reviews.length > 0) { %>
+      <div class="row">
+        <p><b> All Reviews </b></p>
+        <% for(review of listing.reviews) { %>
+          <div class="card col-5 ms-3 mb-3">
+            <div class="card-body">
+              <h5 class="card-title"><i> @<%= review.author.username %> </i></h5>
+              <p class="starability-result card-text" data-rating="<%= review.rating %>"></p>
+              <p class="card-text"><%= review.comment %></p>
+            </div>
+            <form method="POST"  action="/listings/<%=listing._id%>/reviews/<%=review._id%>?_method=DELETE" class="mb-3">
+              <button class="btn btn-sm btn-dark">Delete</button>
+            </form>
+          </div>
+        <% } %>
+      </div>
+      <% } %>
     </div>
+
+    <!-- checks if listing.geometry exists, ensures coordinates is an array, and contains exactly 2 items (longitude and latitude) -->
+    <% if (listing.geometry && Array.isArray(listing.geometry.coordinates) && listing.geometry.coordinates.length === 2) { %>
+      <div class="col-6 offset-3 mb-3">
+        <h3>Where you'll be</h3>
+        <div id="map"></div>
+      </div>
     <% } %>
   </div>
-
-  <!-- checks if listing.geometry exists, ensures coordinates is an array, and contains exactly 2 items (longitude and latitude) -->
-  <% if (listing.geometry && Array.isArray(listing.geometry.coordinates) && listing.geometry.coordinates.length === 2) { %>
-    <div class="col-6 offset-3 mb-3">
-      <h3>Where you'll be</h3>
-      <div id="map"></div>
-    </div>
-  <% } %>
 </div>
 
 <script src="/js/map.js"></script>
