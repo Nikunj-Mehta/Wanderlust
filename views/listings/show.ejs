@@ -104,4 +104,11 @@
   </div>
 </div>
 
+<!-- First: define data -->
+<script>
+  window.mapToken = "<%= process.env.MAP_TOKEN %>";
+   window.listing = <%- JSON.stringify(listing) %>; // or just listingCoordinates & title
+</script>
+
+<!-- Then: load the script that uses that data -->
 <script src="/js/map.js"></script>

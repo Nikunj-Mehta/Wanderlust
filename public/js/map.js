@@ -1,7 +1,10 @@
-const hasMap =  listing.geometry && listing.geometry.coordinates ? 'true' : 'false'; // this is to avoid displaying "Where you'll be for every listing."
-
-if (hasMap) {
-  mapboxgl.accessToken = mapToken;
+if (
+  window.listing &&
+  window.listing.geometry &&
+  Array.isArray(window.listing.geometry.coordinates) &&
+  window.listing.geometry.coordinates.length === 2
+) {
+  mapboxgl.accessToken = window.mapToken;
 
   const map = new mapboxgl.Map({
     container: 'map',
