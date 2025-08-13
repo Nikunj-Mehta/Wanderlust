@@ -36,6 +36,7 @@ It allows users to explore, list, and manage rental properties with **map integr
 ---
 
 ## 📸 Screenshots
+*(Replace these with your actual screenshots from the app)*
 
 **Home Page**
 ![Home Page](screenshots/home.png)
