@@ -36,7 +36,6 @@ It allows users to explore, list, and manage rental properties with **map integr
 ---
 
 ## 📸 Screenshots
-*(Replace these with your actual screenshots from the app)*
 
 **Home Page**
 ![Home Page](screenshots/home.png)
@@ -47,19 +46,21 @@ It allows users to explore, list, and manage rental properties with **map integr
 ---
 
 ## 🛠️ Installation
-```bash
-# Clone the repository
+
+# 1️⃣ Clone the repository
 git clone https://github.com/Nikunj-Mehta/Wanderlust.git
 
-# Install dependencies
+# 2️⃣ Install dependencies
 npm install
 
-# Add environment variables (MongoDB URI, Mapbox Key, etc.) in a `.env` file
+# 3️⃣ Set up environment variables
+#   - Open the `.env.example` file
+#   - Copy its contents into a new file named `.env`
+#   - Fill in your actual credentials (MongoDB URI, Mapbox Key, etc.)
 
-# Run the application
+# 4️⃣ Run the application
 npm start
 
----
 
 ## 📂 Folder Structure
 Wanderlust/
@@ -71,8 +72,9 @@ Wanderlust/
 ├── app.js            # Main server file
 └── package.json
 
+
 ## 🙌 Acknowledgements
-- [Mapbox API](https://www.mapbox.com/) – For interactive maps
-- [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) – Cloud database hosting
-- [Render](https://render.com/) – App hosting
+- Mapbox API – For interactive maps → https://www.mapbox.com/
+- MongoDB Atlas – Cloud database hosting → https://www.mongodb.com/cloud/atlas
+- Render – App hosting → https://render.com/
 - Inspired by Airbnb and guided by the Apna College MERN course
