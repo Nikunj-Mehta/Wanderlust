@@ -47,18 +47,18 @@ It allows users to explore, list, and manage rental properties with **map integr
 
 ## 🛠️ Installation
 
-# 1️⃣ Clone the repository
+### 1️⃣ Clone the repository
 git clone https://github.com/Nikunj-Mehta/Wanderlust.git
 
-# 2️⃣ Install dependencies
+### 2️⃣ Install dependencies
 npm install
 
-# 3️⃣ Set up environment variables
-#   - Open the `.env.example` file
-#   - Copy its contents into a new file named `.env`
-#   - Fill in your actual credentials (MongoDB URI, Mapbox Key, etc.)
+### 3️⃣ Set up environment variables
+   - Open the `.env.example` file
+   - Copy its contents into a new file named `.env`
+   - Fill in your actual credentials (MongoDB URI, Mapbox Key, etc.)
 
-# 4️⃣ Run the application
+### 4️⃣ Run the application
 npm start
 
 
