@@ -81,3 +81,6 @@ Wanderlust/
 - MongoDB Atlas – Cloud database hosting → https://www.mongodb.com/cloud/atlas
 - Render – App hosting → https://render.com/
 - Inspired by Airbnb and guided by the Apna College MERN course
+
+## 🧑‍💻 Author  
+Developed by **[Nikunj Mehta](https://github.com/Nikunj-Mehta)** 🚀 
