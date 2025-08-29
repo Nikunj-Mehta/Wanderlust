@@ -11,8 +11,8 @@ const ejsMate = require("ejs-mate");
 const ExpressError = require("./utils/ExpressError.js");
 const session = require("express-session");
 const MongoStore = require("connect-mongo"); // to use mongo-store for sessions storage on cloud for deployment of our project.
-const flash = require("connect-flash");
-const passport = require("passport");
+const flash = require("connect-flash"); // Used to display flash msg.
+const passport = require("passport"); // Used for authentication.
 const LocalStrategy = require("passport-local"); // to authenticate using username and password.
 const User = require("./models/user.js");
 
@@ -51,7 +51,7 @@ const store = MongoStore.create({ // Method used to create new mongo store.
   touchAfter: 3600 * 24 // Interval between session updates. If there is no change in session the when we will update our infomation. Interval is passed in seconds 24 hours.
 });
 
-store.on("error", (err) => {
+store.on("error", (err) => { // Catch and handle session store errors (e.g., MongoDB down) to prevent app crashes
   console.log("Error in MONGON SESSION STORE", err);
 });
 

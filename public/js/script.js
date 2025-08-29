@@ -21,22 +21,34 @@
 // JS Code for listings index.ejs
 // working of right and left for scroll
 const scrollContainer = document.getElementById('filters');
-document.getElementById('scrollLeft').addEventListener('click', () => {
-  scrollContainer.scrollBy({ left: -200, behavior: 'smooth' });
-});
-document.getElementById('scrollRight').addEventListener('click', () => {
-  scrollContainer.scrollBy({ left: 200, behavior: 'smooth' });
-});
+const scrollLeftBtn = document.getElementById('scrollLeft');
+const scrollRightBtn = document.getElementById('scrollRight');
+
+//  Add null checks so code doesn’t break on pages where buttons/filters don’t exist
+if (scrollContainer && scrollLeftBtn) {
+  scrollLeftBtn.addEventListener('click', () => {
+    scrollContainer.scrollBy({ left: -200, behavior: 'smooth' });
+  });
+}
+if (scrollContainer && scrollRightBtn) {
+  scrollRightBtn.addEventListener('click', () => {
+    scrollContainer.scrollBy({ left: 200, behavior: 'smooth' });
+  });
+}
 
 // show the taxes when switch is on, don't show otherwise.
 let taxSwitch = document.getElementById("switchCheckDefault");
-taxSwitch.addEventListener("click", () => {
-  let taxInfo = document.getElementsByClassName("tax-info");
-  for(info of taxInfo) {
-    if(info.style.display != "inline") {
-      info.style.display = "inline";
-    } else {
-      info.style.display = "none";
+
+//  Add null check for pages where switch is not present
+if (taxSwitch) {
+  taxSwitch.addEventListener("click", () => {
+    let taxInfo = document.getElementsByClassName("tax-info");
+    for (let info of taxInfo) {
+      if (info.style.display != "inline") {
+        info.style.display = "inline";
+      } else {
+        info.style.display = "none";
+      }
     }
-  }
-});
+  });
+}
