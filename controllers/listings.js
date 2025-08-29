@@ -17,7 +17,13 @@ module.exports.searchedListings = async (req, res) => {
     return res.redirect("/listings");
   }
 
-  const searchedListings = await Listing.find({title: {$regex: search, $options: "i"}}); // case-insensitive search
+  const searchedListings = await Listing.find({
+    $or: [
+      { title: { $regex: search, $options: "i" } },
+      { location: { $regex: search, $options: "i" } },
+      { country: { $regex: search, $options: "i" } }
+    ]
+  }); // case-insensitive search
 
   if (searchedListings.length === 0) {
     req.flash("error", "No listings found matching your search. However, here are all the available listings."); // if no listings matched the current search.
@@ -48,10 +54,9 @@ module.exports.renderNewForm = (req, res) => {
 // After receiving data from the new listing form, save it to the database and re-render the listings page with the new listing included.
 module.exports.createListing = async (req, res, next) => { // importing and using wrapAsync. we need isLoggedIn here because if someone sends post req from hoppscotch.
   let response = await geocodingClient.forwardGeocode({
-    query: req.body.listing.location,
-    limit: 1
-  })
-    .send()
+    query: req.body.listing.location, // location text input from user (e.g., "New York")
+    limit: 1 // return only the best single match
+  }).send()
   
   let url = req.file.path; // Now we need to save these 2 things in our db.
   let filename = req.file.filename;
@@ -104,11 +109,11 @@ module.exports.renderEditForm = async (req, res) => {
 // Takes the data from the edit form, updates it in the database, and re-renders the listing with the changes.
 module.exports.updateListing = async(req, res) => { // passing server side schema validator as middleware.
   let { id } = req.params;
-  let listing = await Listing.findByIdAndUpdate(id, {...req.body.listing}); // deconstruct and fill the fields by updated values. These values will update all except image for that we need to do it again below.
+  let listing = await Listing.findByIdAndUpdate(id, {...req.body.listing}); // deconstruct and fill the fields by updated values. These values will update all except image for that we need to do it again below. but if the image is not edited then the block below will not be executed.
 
-  if(typeof req.file !== "undefined") { // If user didn't gave any image,  he just updated title or description then this will be undefined. We need to update image only if user gives a new image.
-    let url = req.file.path; // Now we need to save these 2 things in our db.
-    let filename = req.file.filename;
+  if(typeof req.file !== "undefined") { // If user didn't gave any image,  he just updated title or description then this will be undefined and this block will not execute. We need to update image only if user gives a new image.
+    let url = req.file.path; // Cloudinary returns the hosted image URL
+    let filename = req.file.filename; // Cloudinary's stored filename
     listing.image = { url, filename }; // then update the image field of listing. first upload the file on cloud take it's url and filename then,
     await listing.save(); // save it in db.
   }
@@ -119,7 +124,7 @@ module.exports.updateListing = async(req, res) => { // passing server side schem
 // Takes the ID of the clicked listing (where the delete button is), finds it in the database, and deletes it.
 module.exports.destroyListing = async (req, res) => {
   let { id } = req.params;
-  let deletedListing = await Listing.findByIdAndDelete(id);
+  let deletedListing = await Listing.findByIdAndDelete(id); // When this is deleted a middleware comes and deletes all the reviews.(Written in models/listing.js)
   console.log(deletedListing);
   req.flash("success", "Lisiting Deleted!");
   res.redirect("/listings");

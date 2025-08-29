@@ -9,7 +9,7 @@ module.exports.isLoggedIn = (req, res, next) => {
   if(!req.isAuthenticated()) { // isAuthenticated: is a passport method which checks whether the user is logged in or not. If not it returns false.  And that user related info triggers isAuthenticated method
     // redirectUrl save (We need to save it when user is not logged in, if he is logged in then there is no need for it).
     req.session.redirectUrl = req.originalUrl; // passport deletes all these info after login so to handel that we need to save it in locals as those values we can use anywhere and passport cant delete it.
-    req.flash("error", "You must be logged in to create listing!");
+    req.flash("error", "You must be logged in before making changes!");
     return res.redirect("/login");
   }
   next(); // if user is authenticated.
