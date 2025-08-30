@@ -1,0 +1,44 @@
+<% layout("layouts/boilerplate.ejs") %>
+
+<!-- Profile Section -->
+<div class="card shadow mt-5 mx-auto" style="max-width: 600px;">
+  <div class="card-body p-4">
+    <h3 class="card-title text-center mb-4">Profile Details</h3>
+    <div class="d-flex justify-content-between px-2">
+      <p class="mb-0"><strong>Name:</strong> <%= profile.username %></p>
+      <p class="mb-0"><strong>Email:</strong> <%= profile.email %></p>
+    </div>
+  </div>
+</div>
+
+<!-- Listings Section -->
+<div class="container mt-5">
+  <h3 class="text-center mb-4">
+    <abbr title="<%= profile.username %>'s Listings" style="text-decoration: none; border-bottom: none;">
+      Listings You Own
+    </abbr>
+  </h3>
+
+  <% if (listings.length === 0) { %>
+    <p class="text-center">You don’t own any listings yet.</p>
+  <% } else { %>
+    <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-3">
+      <% for(let listing of listings) { %>
+        <a href="/listings/<%=listing.id%>" class="listing-link">
+          <div class="card col listing-card">
+            <img src="<%= listing.image.url %>" class="card-img-top" alt="listing_image" style="height: 20rem">
+            
+            <div class="card-img-overlay"></div>
+
+            <div class="card-body">
+              <p class="card-text">
+                <b><%= listing.title %></b> <br />
+                &#8377; <%= listing.price.toLocaleString("en-IN") %> / night
+              </p>
+            </div>
+          </div>
+        </a>
+      <% } %>
+    </div>
+  <% } %>
+</div>

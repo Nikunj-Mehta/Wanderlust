@@ -1,4 +1,5 @@
 const User = require("../models/user.js");
+const Listing = require("../models/listing.js")
 
 // Renders signup up form
 module.exports.renderSignupFrom = (req, res) => {
@@ -49,4 +50,21 @@ module.exports.logout = (req, res, next) => {
     req.flash("success", "You are logged out!");
     res.redirect("/listings");
   });
+};
+
+// User's profile
+module.exports.getProfile = async (req, res, next) => {
+  const { id } = req.params; // Extract the user's ID from URL
+
+  const user = await User.findById(id); // Find the user with that id in UserDB and store it in user var.
+  if (!user) { // No no user found then with an error flash redirect to /listings.
+    req.flash("error", "User not found!");
+    return res.redirect("/listings");
+  }
+  
+  // include title, image, and price
+  const listings = await Listing.find({ owner: id })
+    .select("title image price");
+
+  res.render("users/profile", { profile: user, listings });
 };

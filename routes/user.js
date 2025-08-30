@@ -25,4 +25,7 @@ router
 
 router.get("/logout", isLoggedIn, userController.logout);
 
+// User's Profile
+router.get("/profile/:id", isLoggedIn, wrapAsync(userController.getProfile));
+
 module.exports = router;
