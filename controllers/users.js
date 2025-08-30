@@ -63,8 +63,8 @@ module.exports.getProfile = async (req, res, next) => {
   }
   
   // include title, image, and price
-  const listings = await Listing.find({ owner: id })
-    .select("title image price");
+  const listings = await Listing.find({ owner: id }) // It returns all the fields about users
+    .select("title image price"); // But we only need these so out of all select only these.
 
   res.render("users/profile", { profile: user, listings });
 };
