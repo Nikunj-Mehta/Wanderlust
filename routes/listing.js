@@ -10,7 +10,7 @@ const upload = multer(({ storage })); // Multer will extract files from form's d
 // Router.route a way to group together routes with different verbs but same path.
 router
   .route("/")
-  .get(wrapAsync(listingController.index)) // Index Route
+  .get(wrapAsync(listingController.index)) // Index Route if get request comes
   .post(
     isLoggedIn,  
     upload.single("listing[image]"), // Jaise he post req aye "/" pr waise he multer jo listingImage se single image aa rhe hai vo cloud pr wanderlust naam k folder m upload kr de.
